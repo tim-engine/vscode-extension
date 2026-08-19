@@ -1,0 +1,55 @@
+{
+  "name": "tim-engine",
+  "version": "0.1.0",
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "timl",
+        "icon": {
+          "light": "assets/file_icon.svg",
+          "dark": "assets/file_icon.svg"
+        },
+        "aliases": [
+          "Tim",
+          "timl"
+        ],
+        "extensions": [
+          "timl"
+        ],
+        "configuration": "language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "timl",
+        "scopeName": "source.timl",
+        "path": "syntaxes/timl.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.js": "javascript",
+          "meta.embedded.block.css": "css",
+          "meta.embedded.block.json": "json",
+          "meta.embedded.block.yaml": "yaml"
+        }
+      }
+    ]
+  },
+  "description": "Syntax Highlighting for the Tim Templating Engine",
+  "displayName": "Tim Engine",
+  "icon": "assets/logo.png",
+  "keywords": [
+    "tim",
+    "timl",
+    "templating engine"
+  ],
+  "publisher": "OpenPeeps",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tim-engine/vscode-extension"
+  },
+  "engines": {
+    "vscode": "^1.87.0"
+  }
+}

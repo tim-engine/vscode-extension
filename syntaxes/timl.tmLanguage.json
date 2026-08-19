@@ -1,0 +1,523 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Tim",
+  "scopeName": "source.timl",
+  "fileTypes": ["timl"],
+  "patterns": [
+    {
+      "include": "#embedded_languages"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#string_literal"
+    },
+    {
+      "include": "#float_literal"
+    },
+    {
+      "include": "#integer_literal"
+    },
+    {
+      "include": "#boolean_literal"
+    },
+    {
+      "include": "#comment_literal"
+    },
+    {
+      "include": "#timl_global_and_local_variables"
+    },
+    {
+      "include": "#variable_literal"
+    },
+    {
+      "include": "#html_element"
+    },
+    {
+      "include": "#attribute_keyValuePair"
+    },
+    {
+      "match": "[a-zA-Z]",
+      "name": "entity.other.attribute-name.timl"
+    }
+  ],
+  "repository": {
+    "control_keyword": {
+      "match": "\\b(if|elif|else|for|in|case|of|while|var|const|and|or|echo|return|void|fn|func|macro)\\b",
+      "name": "keyword.control.timl"
+    },
+    "function_head": {
+      "patterns": [
+        {
+          "name": "meta.function.head.timl",
+          "begin": "\\b(func|fn|macro)\\b\\s+([a-zA-Z_][a-zA-Z0-9_]*(\\*)?)\\s*\\(",
+          "beginCaptures": {
+            "1": { "name": "storage.type.function.timl" },
+            "2": { "name": "entity.name.function.timl" },
+            "3": { "name": "keyword.control.timl" }
+          },
+          "end": "\\)\\s*(:\\s*[a-zA-Z_][a-zA-Z0-9_<>]*)?\\s*(=|\\{)",
+          "endCaptures": {
+            "1": { "name": "storage.type.return-type.timl" },
+            "2": { "name": "punctuation.section.function.begin.timl" }
+          },
+          "patterns": [
+            {
+              "name": "variable.parameter.timl",
+              "match": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?::\\s*([a-zA-Z_][a-zA-Z0-9_<>]*))?",
+              "captures": {
+                "1": { "name": "variable.parameter.name.timl" },
+                "2": { "name": "storage.type.parameter-type.timl" }
+              }
+            },
+            {
+              "match": "=",
+              "name": "keyword.operator.assignment.timl"
+            },
+            {
+              "match": ",",
+              "name": "punctuation.separator.parameter.timl"
+            },
+            { "include": "#integer_literal" },
+            { "include": "#float_literal" },
+            { "include": "#string_literal" },
+            { "include": "#boolean_literal" }            
+          ]
+        }
+      ]
+    },
+    "typeof_literal_keyword": {
+      "match": "\\.(type|typeof)",
+      "name": "keyword.operator.timl"
+    },
+    "other_keywords": {
+      "match": "(?<!\\w)@(javascript|yaml|css|end|view|include|import|placeholder)",
+      "name": "keyword.control.less"
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "include": "#function_head"
+        },
+        {
+          "include": "#control_keyword"
+        },
+        {
+          "include": "#typeof_literal_keyword"
+        },
+        {
+          "include": "#other_keywords"
+        }
+      ]
+    },
+    "relational_operators": {
+      "match": "\\b<|<=|>|>=|==|!=\\b",
+      "name": "keyword.operator.timl"
+    },
+    "logical_operators": {
+      "match": "&&|\\|\\||:|\\?",
+      "name": "keyword.operator.timl strong.timl"
+    },
+    "math_operators": {
+      "match": "\\s+\\+|-|\\*|/\\s+",
+      "name": "keyword.operator.timl"
+    },
+    "operators": {
+      "patterns": [
+        {
+          "include": "#relational_operators"
+        },
+        {
+          "include": "#logical_operators"
+        },
+        {
+          "include": "#math_operators"
+        }
+      ]
+    },
+    "char_escapes": {
+      "patterns": [
+        {
+          "match": "\\\\[cC]|\\\\[rR]",
+          "name": "constant.character.escape.carriagereturn.timl"
+        },
+        {
+          "match": "\\\\[lL]|\\\\[nN]",
+          "name": "constant.character.escape.linefeed.timl"
+        },
+        {
+          "match": "\\\\[fF]",
+          "name": "constant.character.escape.formfeed.timl"
+        },
+        {
+          "match": "\\\\[tT]",
+          "name": "constant.character.escape.tabulator.timl"
+        },
+        {
+          "match": "\\\\[vV]",
+          "name": "constant.character.escape.verticaltabulator.timl"
+        },
+        {
+          "match": "\\\\\\\"",
+          "name": "constant.character.escape.double-quote.timl"
+        },
+        {
+          "match": "\\\\'",
+          "name": "constant.character.escape.single-quote.timl"
+        },
+        {
+          "match": "\\\\[0-9]+",
+          "name": "constant.character.escape.chardecimalvalue.timl"
+        },
+        {
+          "match": "\\\\[aA]",
+          "name": "constant.character.escape.alert.timl"
+        },
+        {
+          "match": "\\\\[bB]",
+          "name": "constant.character.escape.backspace.timl"
+        },
+        {
+          "match": "\\\\[eE]",
+          "name": "constant.character.escape.escape.timl"
+        },
+        {
+          "match": "\\\\[xX]\\h\\h",
+          "name": "constant.character.escape.hex.timl"
+        },
+        {
+          "match": "\\\\\\\\",
+          "name": "constant.character.escape.backslash.timl"
+        }
+      ]
+    },
+    "template_substitution_element": {
+      "begin": "\\$\\{",
+      "end": "}",
+      "beginCaptures": {
+        "0": {
+          "name": "meta.template.expression.begin.timl"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "meta.template.expression.end.timl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "source.timl"
+        }
+      ]
+    },
+    "single_quote_string": {
+      "begin": "'",
+      "end": "'",
+      "beginCaptures": {
+        "0": {
+          "name": "string.quoted.single.begin"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "string.quoted.single.end"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#char_escapes"
+        }
+      ],
+      "name": "string.quoted.single"
+    },
+    "double_quote_string": {
+      "begin": "\"",
+      "end": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "string.quoted.double.begin"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "string.quoted.double.end"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#char_escapes"
+        }
+      ],
+      "name": "string.quoted.double"
+    },
+    "triple_quote_string": {
+      "begin": "\"\"\"",
+      "end": "\"\"\"",
+      "beginCaptures": {
+        "0": {
+          "name": "string.quoted.triple.begin"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "string.quoted.triple.end"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#char_escapes"
+        }
+      ],
+      "name": "string.quoted.triple"
+    },
+    "backtick_template_string": {
+      "begin": "`",
+      "end": "`",
+      "patterns": [
+        {
+          "include": "#template_substitution_element"
+        },
+        {
+          "include": "#char_escapes"
+        }
+      ],
+      "name": "string.template.timl"
+    },
+    "string_literal": {
+      "patterns": [
+        {
+          "include": "#triple_quote_string"
+        },
+        {
+          "include": "#double_quote_string"
+        },
+        {
+          "include": "#single_quote_string"
+        },
+        {
+          "include": "#backtick_template_string"
+        }
+      ]
+    },
+    "integer_literal": {
+      "patterns": [
+        {
+          "match": "-?\\b(0[xX]\\h[_\\h]*)('(([iIuU](8|16|32|64))|[uU]))?",
+          "name": "constant.numeric.integer.hexadecimal.timl"
+        },
+        {
+          "match": "-?\\b(0o[0-7][_0-7]*)('(([iIuU](8|16|32|64))|[uU]))?",
+          "name": "constant.numeric.integer.octal.timl"
+        },
+        {
+          "match": "-?\\b(0(b|B)[01][_01]*)('(([iIuU](8|16|32|64))|[uU]))?",
+          "name": "constant.numeric.integer.binary.timl"
+        },
+        {
+          "match": "-?\\b(?<![^\\.]\\.)(\\d[_\\d]*)('(([iIuU](8|16|32|64))|[uU]))?",
+          "name": "constant.numeric.integer.decimal.timl"
+        }
+      ]
+    },
+    "float_literal": {
+      "patterns": [
+        {
+          "match": "-?\\b0[xX]\\h[_\\h]*'([fF](32|64|128)|[fFdD])",
+          "name": "constant.numeric.float.hexadecimal.timl"
+        },
+        {
+          "match": "-?\\b0o[0-7][_0-7]*'([fF](32|64|128)|[fFdD])",
+          "name": "constant.numeric.float.octal.timl"
+        },
+        {
+          "match": "-?\\b0(b|B)[01][_01]*'([fF](32|64|128)|[fFdD])",
+          "name": "constant.numeric.float.binary.timl"
+        },
+        {
+          "match": "-?\\b(?<![^\\.]\\.)(((\\d[_\\d]*)(\\.(\\d[_\\d]*))?'([fF](32|64|128)|[fFdD]))|((\\d[_\\d]*)(\\.(\\d[_\\d]*))?e(-)?(\\d[_\\d]*)'([fF](32|64|128)|[fFdD]))|((\\d[_\\d]*)(\\.(\\d[_\\d]*))?e(-)?(\\d[_\\d]*)(?![a-zA-Z\\.]))|((\\d[_\\d]*)(\\.(\\d[_\\d]*))))\\b",
+          "name": "constant.numeric.float.decimal.timl"
+        }
+      ]
+    },
+    "boolean_literal": {
+      "match": "\\b(true|false)\\b",
+      "name": "constant.language.timl"
+    },
+    "comment_literal": {
+      "patterns": [
+        {
+          "name": "comment.block.timl",
+          "begin": "/\\*",
+          "end": "\\*/"
+        },
+        {
+          "match": "(^|\\s)//.*$",
+          "name": "comment.line.double-slash.timl"
+        }
+      ]
+    },
+    "timl_global_and_local_variables": {
+      "patterns": [
+        {
+          "comment": "Keyword indicating a global variable",
+          "name": "keyword.other.$.global.timl",
+          "match": "(\\$app)\\.([a-zA-z0-9\\.]+)",
+          "captures": {
+            "1": { "name": "support.constant.timl" },
+            "2": { "name": "storage.type.variable" }
+          }
+        },
+        {
+          "comment": "Keyword indicating a local variable",
+          "name": "keyword.other.$.local.timl",
+          "match": "(\\$this)\\.([a-zA-z0-9\\.]+)",
+          "captures": {
+            "1": {
+              "name": "support.variable.timl"
+            },
+            "2": {
+              "name": "storage.type.variable"
+            }
+          }
+        }
+      ]
+    },
+    "variable_literal": {
+      "comment": "Every variable accessed by `$` prefix",
+      "name": "storage.type.variable",
+      "match": "\\$[a-zA-z0-9\\.]+"
+    },
+    "single_html_tag_classNames_first": {
+      "comment": "A valid html tag on a line",
+      "match": "(?<=^|\\s)([a-z0-6]+)((?:\\.[a-zA-Z0-9-]+)*)(#[a-zA-Z0-9-]+)?:?",
+      "captures": {
+        "1": { "name": "entity.name.tag.html.timl" },
+        "2": { "name": "meta.attribute.class.html.timl" },
+        "3": { "name": "meta.attribute.id.html.timl emphasis.timl" }
+      }
+    },
+    "single_html_tag_id_first": {
+      "comment": "A valid html tag on a line",
+      "match": "(?<=^|\\s)([a-z0-6]+)(#[a-zA-Z0-9-]+)((\\.[a-zA-Z0-9-_]+)*)",
+      "captures": {
+        "1": { "name": "entity.name.tag.html.timl" },
+        "2": { "name": "meta.attribute.id.html.timl emphasis.timl" },
+        "3": { "name": "meta.attribute.class.html.timl" }
+      }
+    },
+    "cssStyles": {
+      "match": "\\s+(\\.[a-zA-Z0-9-_]+)+\\s*",
+      "name": "meta.attribute.class.html.timl"
+    },
+    "html_element": {
+      "name": "entity.name.tag.timl",
+      "patterns": [
+        { "include": "#single_html_tag_id_first" },
+        { "include": "#single_html_tag_classNames_first" },
+        { "include": "#cssStyles" }
+      ]
+    },
+    "attribute_keyValuePair": {
+      "match": "\\s+([a-zA-Z0-9-_:]+)\\s*=\\s*",
+      "captures": {
+        "1": { "name": "entity.other.attribute-name.key.timl" }
+      }
+    },
+    "javascript_block": {
+      "comment": "This highlights embedded Javascript",
+      "name": "meta.embedded.block.js",
+      "begin": "^(@)(javascript)\\s*([\\t\\s\\S]*)$",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" },
+        "3": { "patterns": [{ "include": "#attribute_keyValuePair" }] }
+      },
+      "patterns": [{ "include": "source.js" }],
+      "end": "^(@)(end)$",
+      "endCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" }
+      }
+    },
+    "client_block": {
+      "comment": "This highlights a block of code that will be rendered in the browser (CSR)",
+      "begin": "^(@)(client)\\s*([\\t\\s\\S]*)$",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" },
+        "3": { "patterns": [{ "include": "#attribute_keyValuePair" }] }
+      },
+      "end": "^(@)(end)$",
+      "endCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" }
+      },
+      "patterns": [
+        {
+          "include": "source.timl"
+        }
+      ]
+    },
+    "json_block": {
+      "comment": "This highlights embedded Json blocks",
+      "name": "meta.embedded.block.json",
+      "begin": "^(@)(json)\\s*([\\t\\s\\S]*)$",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" },
+        "3": { "patterns": [{ "include": "#attribute_keyValuePair" }] }
+      },
+      "patterns": [{ "include": "source.json" }],
+      "end": "^(@)(end)$",
+      "endCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" }
+      }
+    },
+    "yaml_block": {
+      "comment": "This highlights embedded block of Yaml code",
+      "name": "meta.embedded.block.yaml",
+      "begin": "^(@)(yaml)\\s*([\\t\\s\\S]*)$",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" },
+        "3": { "patterns": [{ "include": "#attribute_keyValuePair" }] }
+      },
+      "patterns": [{ "include": "source.yaml" }],
+      "end": "^(@)(end)$",
+      "endCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" }
+      }
+    },
+    "css_block": {
+      "comment": "This highlights embedded CSS code",
+      "name": "meta.embedded.block.css",
+      "begin": "^(@)(css)\\s*([\\t\\s\\S]*)$",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" },
+        "3": { "patterns": [{ "include": "#attribute_keyValuePair" }] }
+      },
+      "patterns": [{ "include": "source.css" }],
+      "end": "^(@)(end)$",
+      "endCaptures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "keyword.other.@.timl" }
+      }
+    },
+    "embedded_languages": {
+      "patterns": [
+        { "include": "#json_block" },
+        { "include": "#javascript_block" },
+        { "include": "#css_block" },
+        { "include": "#yaml_block" },
+        { "include": "#client_block" }
+      ]
+    }
+  }
+}
