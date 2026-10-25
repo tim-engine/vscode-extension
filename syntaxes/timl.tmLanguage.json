@@ -54,7 +54,7 @@
       "patterns": [
         {
           "name": "meta.function.head.timl",
-          "begin": "\\b(func|fn|macro)\\b\\s+([a-zA-Z_][a-zA-Z0-9_]*(\\*)?)\\s*\\(",
+          "begin": "\\b(func|fn|macro)\\b\\s+([a-zA-Z_][a-zA-Z0-9_-]*(\\*)?)\\s*\\(",
           "beginCaptures": {
             "1": { "name": "storage.type.function.timl" },
             "2": { "name": "entity.name.function.timl" },
@@ -68,7 +68,7 @@
           "patterns": [
             {
               "name": "variable.parameter.timl",
-              "match": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?::\\s*([a-zA-Z_][a-zA-Z0-9_<>]*))?",
+              "match": "([a-zA-Z_][a-zA-Z0-9_-]*)\\s*(?::\\s*([a-zA-Z_][a-zA-Z0-9_<>]*))?",
               "captures": {
                 "1": { "name": "variable.parameter.name.timl" },
                 "2": { "name": "storage.type.parameter-type.timl" }
@@ -98,6 +98,13 @@
       "match": "(?<!\\w)@(javascript|yaml|css|end|view|include|import|placeholder)",
       "name": "keyword.control.less"
     },
+    "macro_call": {
+      "match": "(@)([a-zA-Z_][a-zA-Z0-9_-]*)",
+      "captures": {
+        "1": { "name": "keyword.other.@.timl" },
+        "2": { "name": "entity.name.function.timl" }
+      }
+    },
     "keywords": {
       "patterns": [
         {
@@ -111,6 +118,9 @@
         },
         {
           "include": "#other_keywords"
+        },
+        {
+          "include": "#macro_call"
         }
       ]
     },
@@ -365,7 +375,7 @@
         {
           "comment": "Keyword indicating a global variable",
           "name": "keyword.other.$.global.timl",
-          "match": "(\\$app)\\.([a-zA-z0-9\\.]+)",
+          "match": "(\\$app)\\.([a-zA-Z0-9._-]+)",
           "captures": {
             "1": { "name": "support.constant.timl" },
             "2": { "name": "storage.type.variable" }
@@ -374,7 +384,7 @@
         {
           "comment": "Keyword indicating a local variable",
           "name": "keyword.other.$.local.timl",
-          "match": "(\\$this)\\.([a-zA-z0-9\\.]+)",
+          "match": "(\\$this)\\.([a-zA-Z0-9._-]+)",
           "captures": {
             "1": {
               "name": "support.variable.timl"
@@ -389,7 +399,7 @@
     "variable_literal": {
       "comment": "Every variable accessed by `$` prefix",
       "name": "storage.type.variable",
-      "match": "\\$[a-zA-z0-9\\.]+"
+      "match": "\\$[a-zA-Z0-9._-]+"
     },
     "single_html_tag_classNames_first": {
       "comment": "A valid html tag on a line",
