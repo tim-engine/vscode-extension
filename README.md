@@ -6,16 +6,14 @@
 </p>
 
 <p align="center">
-   🚀 Install from <a href="https://marketplace.visualstudio.com/items?itemName=CletusIgwe.timextension">VSCode Marketplace</a> | Search for "<em>Tim Engine</em>" in VSCode Extensions Tab
+   🚀 Install from <a href="https://marketplace.visualstudio.com/items?itemName=OpenPeeps.tim-engine">VSCode Marketplace</a> | Search for "<em>Tim Engine</em>" in VSCode Extensions Tab
 </p>
 
 ### About
 This is a Visual Studio Code extension that provides syntax highlighting for [Tim Engine](https://github.com/openpeeps/tim/), a high-performance templating engine and DSL (domain-specific language) for generating HTML web pages.
 
-Check out the official documentation for Tim Engine at 👉 https://tim.openpeeps.dev
-
-### Preview 
-![Preview of Tim syntax in VSCode](https://github.com/Uzo2005/tim-vscode-extension/blob/master/assets/preview@v2.png?raw=true)
+- Official Documentation: https://tim.openpeeps.dev
+- Tim Engine Playground: https://tim.openpeeps.dev/playground
 
 ### Release Notes
 - Initial release of Tim Extension
