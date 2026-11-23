@@ -10,7 +10,7 @@
 </p>
 
 ### About
-This is a Visual Studio Code extension that provides syntax highlighting for [Tim Engine](https://github.com/openpeeps/tim/), a high-performance templating engine and DSL (domain-specific language) for generating HTML web pages.
+This is a Visual Studio Code extension that provides syntax highlighting for [Tim Engine](https://github.com/tim-engine/tim), a high-performance templating engine and DSL (domain-specific language) for generating HTML web pages.
 
 - Official Documentation: https://tim.openpeeps.dev
 - Tim Engine Playground: https://tim.openpeeps.dev/playground
