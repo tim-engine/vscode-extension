@@ -21,4 +21,4 @@ This is a Visual Studio Code extension that provides syntax highlighting for [Ti
 - Update syntax highlighting to reflect latest changes in Tim Engine
 ---
 
-MIT | **Made With ❤️ By Cletus!**
+MIT | **Made With ❤️ By [Cletus](https://github.com/Uzo2005)!**
