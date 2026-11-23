@@ -15,10 +15,4 @@ This is a Visual Studio Code extension that provides syntax highlighting for [Ti
 - Official Documentation: https://tim.openpeeps.dev
 - Tim Engine Playground: https://tim.openpeeps.dev/playground
 
-### Release Notes
-- Initial release of Tim Extension
-- Add Tim File Icon (4-10-2024)
-- Update syntax highlighting to reflect latest changes in Tim Engine
----
-
 MIT | **Made With ❤️ By [Cletus](https://github.com/Uzo2005)!**
